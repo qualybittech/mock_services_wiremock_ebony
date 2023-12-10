@@ -1,0 +1,99 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>ebonywiremock</groupId>
+  <artifactId>ebonywiremock</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+      <packaging>jar</packaging> 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+<!-- https://mvnrepository.com/artifact/com.github.tomakehurst/wiremock -->
+<!-- https://mvnrepository.com/artifact/org.wiremock/wiremock -->
+<dependency>
+    <groupId>org.wiremock</groupId>
+    <artifactId>wiremock</artifactId>
+    <version>3.3.1</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+<dependency>
+    <groupId>com.fasterxml.jackson.core</groupId>
+    <artifactId>jackson-databind</artifactId>
+    <version>2.16.0</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations -->
+<dependency>
+    <groupId>com.fasterxml.jackson.core</groupId>
+    <artifactId>jackson-annotations</artifactId>
+    <version>2.16.0</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-csv -->
+<dependency>
+    <groupId>org.apache.commons</groupId>
+    <artifactId>commons-csv</artifactId>
+    <version>1.10.0</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/net.javacrumbs.json-unit/json-unit -->
+<dependency>
+    <groupId>net.javacrumbs.json-unit</groupId>
+    <artifactId>json-unit</artifactId>
+    <version>3.2.2</version>
+    <scope>test</scope>
+</dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+                <configuration>
+            </configuration>
+            </plugin>
+             <plugin>
+      <!-- Build an executable JAR -->
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-jar-plugin</artifactId>
+      <version>3.1.0</version>
+      <configuration>
+        <archive>
+          <manifest>
+            <addClasspath>true</addClasspath>
+            <classpathPrefix>lib/</classpathPrefix>
+             <classpathScope>test</classpathScope>
+            <mainClass>ebonywiremock.Wiremockoutput</mainClass>
+          </manifest>
+        </archive>
+      </configuration>
+    </plugin>
+<plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+			<archive> <manifest> <mainClass>ebonywiremock.Wiremockoutput</mainClass> </manifest> </archive>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+        </configuration>
+      </plugin>
+      <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>3.1.0</version>
+            <configuration>
+            	<mainClass>ebonywiremock.Wiremockrun</mainClass>
+             	<classpathScope>test</classpathScope>
+            </configuration>
+        </plugin>
+        </plugins>
+    </build>
+</project>
