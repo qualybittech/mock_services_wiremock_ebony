@@ -17,12 +17,16 @@ public class DynamicResponseTransformer implements ResponseTransformerV2 {
             
           String productId = JsonExtractor.extractJsonValue(request.getBodyAsString(), "productId: \\\"", "\\\"");
           String contractId = JsonExtractor.extractJsonValue(request.getBodyAsString(), "contractId: \\\"", "\\\"");
-          String filePath = "./CF4977.csv";
+         String filePath = "./CF4977.csv";
+          
           
           CSVRecord productDetails  = CSVProductLookup.productsByCode(filePath, productId);
           String CSAPrice = productDetails.get("CSA Price");
           String SYO5 = productDetails.get("SYO5 PERSIMMON HOMES - MASTE");	
           String price = CSAPrice ;
+          String name = productDetails.get("Product Description");
+          String sellingUom = productDetails.get("UOM");
+          String supplierPartNumber = productDetails.get("Supplier Product Code");
           
           if(CSAPrice.isEmpty()) {
         	  price = SYO5;
@@ -38,9 +42,9 @@ public class DynamicResponseTransformer implements ResponseTransformerV2 {
                     "        \"name\": \"Bath Shower Mixer Taps\"" +
                     "      }," +
                     "      \"id\": \"" + productId + "\"," +
-                    "      \"name\": \"Bristan Design Utility Lever TMV2 Thermostatic Bath Shower Mixer Chrome DUL3 THBSM C\"," +
-                    "      \"sellingUom\": \"EA\"," +
-                    "      \"supplierPartNumber\": \"DUL3 THBSM C\"," +
+                    "      \"name\": \""+name+"\"," +
+                    "      \"sellingUom\": \""+sellingUom+"\"," +
+                    "      \"supplierPartNumber\": \""+supplierPartNumber+"\"," +
                     "      \"supplierType\": \"UNKNOWN\"," +
                     "      \"productPrice\": {" +
                     "        \"sellingPrice\": {" +

@@ -6,14 +6,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 
 public class JsonExtractor {
-	public static void main(String[] args) {
-        String json = "{\"query\": \"{ product(catalogType: WEB, productId: \\\"101993\\\") { catalogType category { id name} id name sellingUom supplierPartNumber supplierType productPrice(contractId: \\\"SYO5\\\") { sellingPrice{ price{ valueExVat valueIncVat vatAmount }  priceType } } } }\"}";
-        // Extract productId and contractId from the queryValue (which is a GraphQL-like string)
-        String productId = extractJsonValue(json, "productId: \\\"", "\\\"");
-        String contractId = extractJsonValue(json, "contractId: \\\"", "\\\"");
-        System.out.println("productId: " + productId);
-        System.out.println("contractId: " + contractId);
-    }
 	
 	public static String extractJsonValue(String json,String prefix, String suffix) {
         ObjectMapper objectMapper = new ObjectMapper();
