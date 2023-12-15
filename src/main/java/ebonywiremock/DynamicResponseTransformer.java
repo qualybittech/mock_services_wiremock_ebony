@@ -19,17 +19,31 @@ public class DynamicResponseTransformer implements ResponseTransformerV2 {
           String contractId = JsonExtractor.extractJsonValue(request.getBodyAsString(), "contractId: \\\"", "\\\"");
          String filePath = "./CF4977.csv";
           
-          
-          CSVRecord productDetails  = CSVProductLookup.productsByCode(filePath, productId);
+          System.out.println(contractId);
+          /*CSVRecord productDetails  = CSVProductLookup.productsByCode(filePath, productId);         
           String CSAPrice = productDetails.get("CSA Price");
           String SYO5 = productDetails.get("SYO5 PERSIMMON HOMES - MASTE");	
           String price = CSAPrice ;
           String name = productDetails.get("Product Description");
           String sellingUom = productDetails.get("UOM");
           String supplierPartNumber = productDetails.get("Supplier Product Code");
+          String CONTRACTID = productDetails.get("CONTRACTID");*/
+          
+         String CSAPrice = CSVProductLookup_new.getDataFromCSVFile(filePath, productId, contractId, 10);
+         String SYO5 = CSVProductLookup_new.getDataFromCSVFile(filePath, productId, contractId, 11)	;
+         String price ;
+         String name = CSVProductLookup_new.getDataFromCSVFile(filePath, productId, contractId, 3);
+         String sellingUom = CSVProductLookup_new.getDataFromCSVFile(filePath, productId, contractId, 9);
+         String supplierPartNumber = CSVProductLookup_new.getDataFromCSVFile(filePath, productId, contractId, 7);
+         String CONTRACTID = CSVProductLookup_new.getDataFromCSVFile(filePath, productId, contractId, 12);
+         System.out.println("CSAPrice: "+CSAPrice);
+         System.out.println("SYO5:"+SYO5);
+         System.out.println(CSAPrice);
           
           if(CSAPrice.isEmpty()) {
         	  price = SYO5;
+          } else {
+        	  price = CSAPrice;
           }
           
             // Construct dynamic response JSON with extracted values
